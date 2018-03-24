@@ -31,3 +31,6 @@ app.listen(8081)
 We can connect server with cmd `curl -sNT. http://localhost:8081/repl`.
 
 But if reponse from server too large, curl will crash ~
+
+## How it works
+![how-it-works](./how-it-works.png)
