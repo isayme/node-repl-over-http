@@ -1,0 +1,25 @@
+{
+  "name": "repl-over-http",
+  "version": "0.1.0",
+  "description": "A repl tool over HTTP(s)",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isayme/node-repl-over-http.git"
+  },
+  "keywords": [
+    "repl",
+    "http",
+    "express",
+    "middleware"
+  ],
+  "author": "iSayme <isaymeorg@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/isayme/node-repl-over-http/issues"
+  },
+  "homepage": "https://github.com/isayme/node-repl-over-http#readme"
+}
