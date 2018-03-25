@@ -33,4 +33,6 @@ We can connect server with cmd `curl -sNT. http://localhost:8081/repl`.
 But if reponse from server too large, curl will crash ~
 
 ## How it works
+refer [Running a node.js REPL over `curl`](https://gist.github.com/TooTallNate/2053342)
+
 ![how-it-works](./how-it-works.png)
