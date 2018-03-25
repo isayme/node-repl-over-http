@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 'use strict'
 
-const stream = require('stream')
-const request = require('request')
+const url = require('url')
+const http = require('http')
 const yargs = require('yargs')
 
 const argv = yargs
@@ -12,38 +12,18 @@ const argv = yargs
   .demandOption(['url'])
   .help().argv
 
-class Ping extends stream.Readable {
-  constructor () {
-    super()
-    this.pinged = false
-  }
-
-  _read (size) {
-    if (this.pinged) {
-      this.push(null)
-    } else {
-      this.push(' ')
-      this.pinged = true
-    }
-  }
+const opts = url.parse(argv.url)
+opts.method = 'PUT'
+opts.headers = {
+  Expect: '100-continue'
 }
+const req = http.request(opts)
 
-const req = request({
-  method: 'PUT',
-  uri: argv.url
-})
+process.stdin.pipe(req)
 
-const ping = new Ping()
-// trigger connect
-ping.pipe(req, { end: false })
-
-ping.on('end', function () {
-  ping.unpipe(req)
-  process.stdin.pipe(req)
-})
-
-req.pipe(process.stdout)
-
-req.on('end', function () {
-  process.exit(0)
+req.on('response', (res) => {
+  res.pipe(process.stdout)
+  res.on('end', function () {
+    process.exit(0)
+  })
 })
