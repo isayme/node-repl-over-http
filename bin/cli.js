@@ -21,7 +21,7 @@ const req = http.request(opts)
 
 process.stdin.pipe(req)
 
-req.on('response', (res) => {
+req.on('response', res => {
   res.pipe(process.stdout)
   res.on('end', function () {
     process.exit(0)
