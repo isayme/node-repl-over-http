@@ -3,6 +3,7 @@
 
 const url = require('url')
 const http = require('http')
+const readline = require('readline')
 const yargs = require('yargs')
 
 const argv = yargs
@@ -19,11 +20,23 @@ opts.headers = {
 }
 const req = http.request(opts)
 
-process.stdin.pipe(req)
-
 req.on('response', res => {
   res.pipe(process.stdout)
   res.on('end', function () {
     process.exit(0)
   })
+})
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+})
+
+rl.on('line', (input) => {
+  req.write(input)
+  req.write('\n')
+})
+
+rl.on('close', () => {
+  process.exit(0)
 })
