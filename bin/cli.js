@@ -32,7 +32,7 @@ const rl = readline.createInterface({
   output: process.stdout
 })
 
-rl.on('line', (input) => {
+rl.on('line', input => {
   req.write(input)
   req.write('\n')
 })
