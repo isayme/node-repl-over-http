@@ -7,11 +7,11 @@ const supertest = require('supertest')
 const replOverHttp = require('../lib/repl-over-http')
 
 describe('REPL over HTTP(s)', function () {
-  let server = http.createServer(
-    replOverHttp({ welcome: '', useColors: false })
-  )
-
   describe('whoami', function () {
+    let server = http.createServer(
+      replOverHttp({ welcome: '', useColors: false })
+    )
+
     it('should ok', function (done) {
       supertest(server)
         .put('/')
@@ -26,6 +26,10 @@ describe('REPL over HTTP(s)', function () {
   })
 
   describe('command', function () {
+    let server = http.createServer(
+      replOverHttp({ welcome: '', useColors: false })
+    )
+
     it('console.log', function (done) {
       const randomMsg = crypto.randomBytes(4).toString('hex')
 
@@ -35,6 +39,26 @@ describe('REPL over HTTP(s)', function () {
         .end(function (err, res) {
           assert.equal(err, null)
           assert.ok(res.text.indexOf(randomMsg) >= 0)
+          done()
+        })
+    })
+  })
+
+  describe('options.preflight', function () {
+    let server = http.createServer(
+      replOverHttp({ welcome: '', useColors: false, preflight: () => false })
+    )
+
+    it('should reject', function (done) {
+      const randomMsg = crypto.randomBytes(4).toString('hex')
+
+      supertest(server)
+        .put('/')
+        .send(`console.log("${randomMsg}")\n`)
+        .end(function (err, res) {
+          assert.equal(err, null)
+          assert.equal(res.statusCode, 403)
+          assert.equal(res.text, 'Not Allowed!')
           done()
         })
     })

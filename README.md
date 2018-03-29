@@ -6,6 +6,8 @@
 A repl tool over HTTP(s)
 
 ## Use as a middleware
+> npm i repl-over-http
+
 Click [here](./example/server.js) for a full example.
 
 ```
@@ -22,6 +24,8 @@ app.listen(8081)
 ```
 
 ## Use as a cli
+> npm i -g repl-over-http
+
 > repl-cli --uri http://your-repl-host
 
 ### Screenshot
@@ -36,3 +40,6 @@ But if reponse from server too large, curl will crash ~
 refer [Running a node.js REPL over `curl`](https://gist.github.com/TooTallNate/2053342)
 
 ![how-it-works](./how-it-works.png)
+
+## Security
+For security reason, we only allow request from localhost by default. Custom with option `preflight`.
