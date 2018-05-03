@@ -43,6 +43,3 @@ refer [Running a node.js REPL over `curl`](https://gist.github.com/TooTallNate/2
 
 ## Security
 For security reason, we only allow request from localhost by default. Custom with option `preflight`.
-
-`node inspect -p {node pid}` will be another great alternative if you can access the server which running your node service.
-
